@@ -1,5 +1,4 @@
-#include "./headers/main.hpp"
-
+#include "headers/map.hpp"
 
 
 int main() {

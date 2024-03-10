@@ -33,3 +33,6 @@
 
 # Cmake
 build/
+
+#text editor backup
+*.swp

@@ -1,8 +1,6 @@
 #pragma once
-#include <string>
-#include <vector>
-template <typename A>
-using VectorDict = std::vector<std::pair<std::string,A>>;
+#include "datatypes.hpp"
+#include "combat.hpp"
 typedef int chance;
 
 struct coords{
@@ -12,16 +10,13 @@ struct coords{
     coords(int x,int y) : x(x),y(y) {};
 
 };
-struct enemy{};
-
 class tile {
     public:
         std::string name;
-        VectorDict<coords> NavigationDict;
+        std::map<std::string,tile> NavigationDict;
         coords coordinates;
         std::string description;
-        enemy Enemy;
-
+        combatentity Enemy;
         tile():coordinates() {}; 
         tile(int x, int y): coordinates(x,y) {};
 
