@@ -1,9 +1,7 @@
-#include "datatypes.hpp"
+#pragma once
 #include <string>
 #include <vector>
 #include <map>
-//proper practice to have definitions in a c file and just the declarations here; 
-//this is not that, i can move the definitions to a cpp file later
 
 enum attackMethod {
     //random is already defined; "orderless" is what i'm using instead.
@@ -12,10 +10,14 @@ enum attackMethod {
 };
 
 struct attack{
-    std::pair<int,int> damage;//the two value format allows a dice roll + base damage. maybe first is floor, second is die size?
+    int damageBase;
+    int damageDieSize; 
     int attackTime;
     int priority;//if both the player and the enemy "tie" in movementTime one turn, priority should determine which attack goes first.
-    std::string damageType; 
+    std::string damageType;
+    attack(int damageBase,int damageDieSize, int attackTime,int priority,std::string damageType);
+    attack();
+    int rollDamage();
 };
 typedef std::string damageType;
 struct statusEffect: attack{
@@ -33,41 +35,23 @@ struct combatentity{
     std::vector<std::pair<
         damageType,double>> typeModifiers; 
     //idea: some kind of generalized state watcher that can watch variables and do events based on conditions. 
-
-    combatentity();/* {
-        health = 1;
-        takesDamage = 1;
-        defense = 0;
-        movementTime = 0; 
-        strategy = attackMethod::none;
-    };*/
+    void add_attack(std::string name,attack);
+    void add_attack(std::pair<std::string,attack>);
+    //pass iterator without dereference
+    void add_attack(std::pair<std::string,attack>*);
+    combatentity();
+    
     combatentity(int health, int defense, int movementTime, attackMethod strategy);
-       /* health(health),
-        defense(defense),
-        movementTime(movementTime),
-        strategy(strategy)     
-    {};*/
-    combatentity(int health, int defense, int movementTime, attackMethod strategy,bool takesDamage);/*
-        health(health),
-        defense(defense),
-        movementTime(movementTime),
-        strategy(strategy),
-        takesDamage(takesDamage) 
-    {};*/
-    void damageStep(int damage, double DefenseModifier);/* { 
-            defense = defense * DefenseModifier;
-            damage = damage - defense;
-            //my intuition of a func named min/max was that it would allow you to cap a value to a min/max value. 
-            //what it actually does is selects the smaller/larger of two values
-            health -= std::max(damage,0) * takesDamage;
-    }*/
-    
-    void damageStep(int damage);/* {
-        damageStep(damage,1.0);
-    }*/
+
+    combatentity(int health, int defense, int movementTime, attackMethod strategy, bool takesDamage);
+     
+    void damageStep(int damage, double DefenseModifier); 
+    void damageStep(int damage);
 };
-//idea being you register enemy types in this class as needed. tiles can pull from this, create thier own entity if they want, or edit exi 
-class enemyRegistry{
-    std::map<std::string,combatentity> enemies;
-    
-};
+//idea being you register enemy types in this class as needed and pull them for convenience so you don't have to package the same skeleton definition in every tile.
+typedef std::map<std::string,combatentity> combatantregister;
+typedef std::map<std::string,attack> attackregister;
+
+//player is combatentity 1
+bool fightLoop(combatentity&, combatentity&, bool PlayerGoesFirst);
+void playerAttackMenu(combatentity, combatentity);

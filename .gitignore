@@ -33,6 +33,7 @@
 
 # Cmake
 build/
-
+.cache/
+.vscode/
 #text editor backup
 *.swp

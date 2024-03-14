@@ -1,5 +1,4 @@
 #pragma once
-#include "datatypes.hpp"
 #include "combat.hpp"
 typedef int chance;
 
