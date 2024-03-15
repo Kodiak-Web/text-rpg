@@ -1,6 +1,5 @@
 #include "headers/combat.hpp"
 #include <iostream>
-#include <random>
 
 
 
@@ -11,31 +10,43 @@ combatentity::combatentity() {
         movementTime = 0; 
         strategy = attackMethod::none;
     };
+combatentity::combatentity(int health, int defense, int movementTime): 
+    health(health),
+    defense(defense),
+    movementTime(movementTime),
+    strategy(attackMethod::orderless)
+    {}
 combatentity::combatentity(int health, int defense, int movementTime, attackMethod strategy): 
-        health(health),
-        defense(defense),
-        movementTime(movementTime),
-        strategy(strategy)     
-    {};
+    health(health),
+    defense(defense),
+    movementTime(movementTime),
+    strategy(strategy),
+    takesDamage(1)     
+    {}
 combatentity::combatentity(int health, int defense, int movementTime, attackMethod strategy,bool takesDamage): 
-        health(health),
-        defense(defense),
-        movementTime(movementTime),
-        strategy(strategy),
-        takesDamage(takesDamage) 
-    {};
+    health(health),
+    defense(defense),
+    movementTime(movementTime),
+    strategy(strategy),
+    takesDamage(takesDamage) 
+    {}
 void combatentity::damageStep(int damage, double DefenseModifier) { 
-            defense = defense * DefenseModifier;
-            damage = damage - defense;
-            //my intuition of a func named min/max was that it would allow you to cap a value to a min/max value. 
-            //what it actually does is selects the smaller/larger of two values
-            health -= std::max(damage,0) * takesDamage;
+    defense = defense * DefenseModifier;
+    damage = damage - defense;
+    //my intuition of a func named min/max was that it would allow you to cap a value to a min/max value. 
+    //what it actually does is selects the smaller/larger of two values
+    health -= std::max(damage,0) * takesDamage;
     }
     
 void combatentity::damageStep(int damage) {
-        damageStep(damage,1.0);
+    damageStep(damage,1.0);
     }
-attack::attack(int damageBase, int damageDieSize, int attackTime,int priority,std::string damageType):damageBase(damageBase),damageDieSize(damageDieSize),attackTime(attackTime) ,priority(priority), damageType(damageType) {}
+attack::attack(int damageBase, int damageDieSize, int attackTime,int priority,std::string damageType):
+    damageBase(damageBase),
+    damageDieSize(damageDieSize),
+    attackTime(attackTime),
+    priority(priority), 
+    damageType(damageType) {}
 attack::attack() {
     attack(1,0,128,128,"none");
 }
@@ -97,6 +108,7 @@ void combatentity::add_attack(std::string attackName,attack Attack){
 void combatentity::add_attack(std::pair<std::string,attack> attackElement) {
     add_attack(attackElement.first,attackElement.second); 
 }
-void combatentity::add_attack(std::pair<std::string,attack>* attackElementPtr) {
-    add_attack(*attackElementPtr);
-}
+
+void combatentity::add_attack(std::map<std::string,attack>::iterator attackIterator) {
+    add_attack(*attackIterator);
+} 

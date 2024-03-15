@@ -1,4 +1,5 @@
 #pragma once
+#include <iterator>
 #include <string>
 #include <vector>
 #include <map>
@@ -19,6 +20,7 @@ struct attack{
     attack();
     int rollDamage();
 };
+
 typedef std::string damageType;
 struct statusEffect: attack{
     int duration; //this is in
@@ -37,10 +39,11 @@ struct combatentity{
     //idea: some kind of generalized state watcher that can watch variables and do events based on conditions. 
     void add_attack(std::string name,attack);
     void add_attack(std::pair<std::string,attack>);
-    //pass iterator without dereference
-    void add_attack(std::pair<std::string,attack>*);
-    combatentity();
     
+    //pass attack through map.find["attackname"]
+    void add_attack(std::map<std::string,attack>::iterator);
+    combatentity();
+    combatentity(int health, int defense, int movementTime); 
     combatentity(int health, int defense, int movementTime, attackMethod strategy);
 
     combatentity(int health, int defense, int movementTime, attackMethod strategy, bool takesDamage);
