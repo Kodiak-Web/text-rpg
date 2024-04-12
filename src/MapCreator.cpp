@@ -48,7 +48,7 @@ struct Coordinates {
 	}
 };
 
-//Worldmap class to represent the overall map behavior
+//Worldmap class to represent overall map behavior
 class Worldmap {
 public: 
 	Worldmap(int width, int height) : width(width), height(height) {
@@ -59,18 +59,19 @@ public:
 		}
 	}
 
+	//Adds an object to a map provided that the object is within the Valid Tile position
 	void addObject(const Coordinates& coords, const Object& object) {
 		if (isValidTile(coords)) {
 			tiles[coords].addObject(object);
 		}
 	}
-
+	//Removes an object from a Tile
 	void removeObject(const Coordinates& coords, const Object& object) {
 		if (isValidTile(coords)) {
 			tiles[coords].removeObject(object);
 		}
 	}
-
+	//Checks if there is an object in a provided tile
 	bool hasObject(const Coordinates& coords, const Object& object) const {
 		if (isValidTile(coords)) {
 			return tiles.at(coords).hasObject(object);
@@ -79,6 +80,7 @@ public:
 	}
 
 private:
+	//Checks if a tile is within a valid range
 	bool isValidTile(const Coordinates& coords) const {
 		return coords.x >= 0 && coords.x < width && coords.y >= 0 && coords.y < height;
 	}
@@ -90,7 +92,7 @@ private:
 
 int main()
 {
-	//Creates a 3 x 3 lobby map
+	//Creates a 3 x 3 lobby map (Primarily used for testing purposes)
 	Worldmap lobby(3, 3); 
 
 }
