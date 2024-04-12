@@ -39,6 +39,7 @@ private:
 };
 
 //Coordinates struct to represent coordinate positions of tiles
+//IMPORTANT: The coordinates are Zero-indexed, meaning a position such as (1,2) in the system is actually (2,3)
 struct Coordinates {
 	int x;
 	int y;
@@ -93,6 +94,6 @@ private:
 int main()
 {
 	//Creates a 3 x 3 lobby map (Primarily used for testing purposes)
-	Worldmap lobby(3, 3); 
+	Worldmap lobby(3, 3);
 
 }
