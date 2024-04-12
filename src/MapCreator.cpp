@@ -1,4 +1,4 @@
-/*A Prototype mapping system to host different objects within the game*/
+/*A Prototype mapping system to host different objects on tiles within the game*/
 
 #include <iostream>
 #include <map>
