@@ -1,9 +1,7 @@
 /*A Prototype mapping system to host different objects within the game*/
 
-#include <iostream>
 #include <map>
 #include <unordered_set>
-
 using namespace std;
 
 //Represents an Object on a tile in the map
