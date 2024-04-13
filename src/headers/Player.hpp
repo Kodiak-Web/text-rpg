@@ -1,8 +1,6 @@
 /*Makes the Player object subclass with the ability to move within a space provided*/
 
-#include <iostream>
 #include "MapCreator.h"
-
 using namespace std;
 
 //Makes a working movable player object that is compatible with any created map
