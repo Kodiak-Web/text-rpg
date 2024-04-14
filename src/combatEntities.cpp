@@ -1,41 +1,58 @@
 #include "headers/combat.hpp"
 #include "headers/combatEntities.hpp"
+#include "headers/combatActions.hpp"
+#include <iostream>
 std::map<std::string,std::vector<attack>> attackDict;
 
 void populateAttacks(combatantregister&);
-
-attackregister getAttacks() {
+typedef std::map<std::string,attack> attackMap; 
+attackMap getAttacks() {
     attackregister Attacks = {
-        {"slimeBounce",attack(4,5,3,5,"blunt")},
-        {"playerUnarmed",attack(2,2,25,2,"melee")},
-        {"Sword",attack(4,6,25,5,"sword")}
+        attack(4,6,25,5,"Shoot"),
+        attack(5,10,50,"Steam Punch"), //JE
+        attack(2,5,10,3,"Oil Flamethrower"),//JE
+        attack(0,0,5,0,"Eye Flash"),
+        attack(4,10,20,4,"Dagger Strike"),
+        attack(5,5,0,0,"Blundershot"),
     };
-
-    for(auto [name,curAttack]: Attacks) {
-       //this is display name. explicit display names could be set later, if needed.
-        curAttack.name = name; 
+    //inefficient but makes construction easier 
+    attackMap attackDict;
+    effectMap effectDict = getEffects();
+    for(attack curAttack: Attacks) {
+        attackDict.insert(std::pair(curAttack.name,curAttack));
     }
-    return Attacks;
+    attackDict["Eye Flash"].onUsage = effectDict["stun"].applyAction;
+    return attackDict;
 }
 
 combatantregister getCombatants() {
-    attackregister Attacks = getAttacks();
-    combatantregister Combatants = {
-        {"Player",combatentity(10,5,50,attackMethod::none)},
-        {"Dummy", combatentity(10,0,0,attackMethod::none)},
-        {"Slime", combatentity(10,3,50,attackMethod::orderless)}
-    };
-    for(auto [name,curEntity]: Combatants) {
-        curEntity.name = name;
-    }
-    populateAttacks(Combatants);
-    return Combatants;
-}
+    //memory enjoyers hate this one wierd trick!
 
+    attackMap Attacks = getAttacks();
+    std::vector<combatentity> Combatants = {
+        combatentity("Player",20,5,attackMethod::none),
+        combatentity("Dummy",10,0,attackMethod::none),
+        combatentity("Slime",10,3,attackMethod::orderless),
+        combatentity("John Evil",50,7,attackMethod::orderless),
+        combatentity("Malun Worker",15,3,attackMethod::orderless)
+    };
+    combatantregister combatantDict;
+    for(combatentity curEntity: Combatants) {
+        combatantDict.insert(std::pair(curEntity.name,curEntity));
+    }
+    populateAttacks(combatantDict);
+    return combatantDict;
+}
+//BAD ALLOC? LOOK HERE
 void populateAttacks(combatantregister& Combatants) {
     //this is imperfect, but it'll do
-    attackregister Attacks = getAttacks();
-    Combatants["Slime"].add_attack(Attacks.find("slimeBounce"));
-    Combatants["Player"].add_attack(Attacks.find("Sword"));
-
+    auto Attacks = getAttacks();
+try { 
+    //Combatants["Malun Worker"].add_attack(Attacks["Dagger Strike"]);
+    Combatants["Malun Worker"].add_attack(Attacks["Eye Flash"]);
+    Combatants["Player"].add_attack(Attacks["Shoot"]); }
+catch(std::bad_alloc) {
+    std::cout << "\n\n\n\n\nSomebody tried adding an attack to a combatant, and one of those attacks or combatants was invalid.\n\n\n\n" << std::endl;
+    exit(1);
+}
 }
