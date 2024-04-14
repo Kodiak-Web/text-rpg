@@ -30,7 +30,7 @@ combatentity::combatentity() {
     };
 //i hate that i'm repeating this 3 times.
 //however, this pre-function list format runs the initializers for each variable listed
-combatentity::combatentity(int health, int defense, int movementTime): 
+combatentity::combatentity(int health, int defense): 
     health(health),
     maxHealth(health),
     defense(defense),
@@ -39,7 +39,7 @@ combatentity::combatentity(int health, int defense, int movementTime):
     takesDamage(1),
     maxDefense(defense)
     {}
-combatentity::combatentity(int health, int defense, int movementTime, attackMethod strategy): 
+combatentity::combatentity(int health, int defense, attackMethod strategy): 
     health(health),
     maxHealth(health),
     defense(defense),
@@ -48,7 +48,7 @@ combatentity::combatentity(int health, int defense, int movementTime, attackMeth
     takesDamage(1),
     maxDefense(defense)
     {}
-combatentity::combatentity(int health, int defense, int movementTime, attackMethod strategy,bool takesDamage): 
+combatentity::combatentity(int health, int defense, attackMethod strategy,bool takesDamage): 
     health(health),
     maxHealth(health),
     defense(defense),
@@ -58,7 +58,7 @@ combatentity::combatentity(int health, int defense, int movementTime, attackMeth
     maxDefense(defense)
     {}
 
-    combatentity::combatentity(std::string name, int health, int defense, attackMethod strategy):
+combatentity::combatentity(std::string name, int health, int defense, attackMethod strategy):
     name(name),
     health(health),
     maxHealth(health),
@@ -211,17 +211,21 @@ attack botPickAttack(combatentity& Actor) {
 }
 
 combatStatus fightLoop(combatentity& player,combatentity enemy) {
-    fightLoop(player,enemy,Turn);
+    return fightLoop(player,enemy,Turn);
 }
 void botCombatStep(combatentity& actor,combatentity& target) {
     attack selectedAttack = botPickAttack(actor);
     std::cout << actor.name << " used " << selectedAttack.name << std::endl;
     int damage = selectedAttack.rollDamage();
-    //maybe a smart pseudorandom one would feel better; some games, like XCOM, fake the rng to guarantee that you get an effect every 2 or 3 usages or similar. 
-    bool critRoll = (rand()%selectedAttack.critDieSize==0 ? true : false);
+    //maybe a smart pseudorandom one would feel better; some games, like XCOM, fake the rng to guarantee that you get an effect every 2 or 3 usages or similar.
+    std::cout << "test1" << std::endl; 
+    bool critRoll = ((rand()%selectedAttack.critDieSize==0) ? true : false);
     int damagemodifier = (critRoll ? 2 : 1);
+    std::cout << "test2" << std::endl; 
     int finalDamage = damage * damagemodifier;
+    std::cout << "test3" << std::endl; 
     int DefenseModifier = ( target.isBlocking ? target.BlockModifier : 1);
+    std::cout << "test4" << std::endl; 
     target.damageStep(damage,DefenseModifier);
 
 

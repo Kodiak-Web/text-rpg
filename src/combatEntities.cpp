@@ -9,21 +9,31 @@ typedef std::map<std::string,attack> attackMap;
 attackMap getAttacks() {
     attackregister Attacks = {
         attack(4,6,25,5,"Shoot"),
-        attack(5,10,50,"Steam Punch"), //JE
+        attack(5,10,50,10,"Steam Punch"), //JE
         attack(2,5,10,3,"Oil Flamethrower"),//JE
         attack(0,0,5,0,"Eye Flash"),
-        attack(4,10,20,4,"Dagger Strike"),
-        attack(5,5,0,0,"Blundershot"),
+        attack(4,2,20,10,"Dagger Strike"),
+        attack(5,5,0,0,"Blundershot")
     };
     //inefficient but makes construction easier 
     attackMap attackDict;
-    effectMap effectDict = getEffects();
     for(attack curAttack: Attacks) {
         attackDict.insert(std::pair(curAttack.name,curAttack));
     }
-    attackDict["Eye Flash"].onUsage = effectDict["stun"].applyAction;
+
+
+    
+
+
+
     return attackDict;
 }
+attackMap assignStatusEffects(attackMap attacks) {
+    populateEffects(); 
+    attacks["Eye Flash"].onUsage = Effects["stun"].applyAction;
+
+}
+
 
 combatantregister getCombatants() {
     //memory enjoyers hate this one wierd trick!
@@ -34,7 +44,7 @@ combatantregister getCombatants() {
         combatentity("Dummy",10,0,attackMethod::none),
         combatentity("Slime",10,3,attackMethod::orderless),
         combatentity("John Evil",50,7,attackMethod::orderless),
-        combatentity("Malun Worker",15,3,attackMethod::orderless)
+        combatentity("Malum Worker",15,3,attackMethod::orderless)
     };
     combatantregister combatantDict;
     for(combatentity curEntity: Combatants) {
@@ -48,8 +58,7 @@ void populateAttacks(combatantregister& Combatants) {
     //this is imperfect, but it'll do
     auto Attacks = getAttacks();
 try { 
-    //Combatants["Malun Worker"].add_attack(Attacks["Dagger Strike"]);
-    Combatants["Malun Worker"].add_attack(Attacks["Eye Flash"]);
+    Combatants["Malum Worker"].add_attack(Attacks["Eye Flash"]);
     Combatants["Player"].add_attack(Attacks["Shoot"]); }
 catch(std::bad_alloc) {
     std::cout << "\n\n\n\n\nSomebody tried adding an attack to a combatant, and one of those attacks or combatants was invalid.\n\n\n\n" << std::endl;

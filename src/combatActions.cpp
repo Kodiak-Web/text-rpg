@@ -25,7 +25,9 @@ void applyStunEffect(combatentity actor, combatentity target) {
     //does not care about whether it stacks with 
 }
 void stunEffect(combatentity actor, combatentity target) {
+    std::cout << "before cast" << std::endl;
     actor.defense = (int)((double)actor.maxDefense * 0.6);
+    std::cout << "after cast" << std::endl;
     Turn = !Turn;
     
 }
@@ -34,7 +36,6 @@ void expireStunEffect(combatentity actor, combatentity target) {
     actor.defense = actor.maxDefense;
 }
 //must be called before everything else.
-effectMap getEffects() { 
-    
-    return Effects;
+void populateEffects() { 
+    Effects.insert(std::pair("stun",statusEffect(1,applyStunEffect,stunEffect,nothing,expireStunEffect))); 
 }

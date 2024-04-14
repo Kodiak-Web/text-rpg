@@ -70,9 +70,9 @@ struct combatentity{
     void add_attack(attack*); 
     combatentity();
     combatentity(std::string name, int health, int defense, attackMethod strategy);
-    combatentity(int health, int defense, int movementTime); 
-    combatentity(int health, int defense, int movementTime, attackMethod strategy);
-    combatentity(int health, int defense, int movementTime, attackMethod strategy, bool takesDamage);
+    combatentity(int health, int defense); 
+    combatentity(int health, int defense, attackMethod strategy);
+    combatentity(int health, int defense, attackMethod strategy, bool takesDamage);
     void damageStep(int damage, double DefenseModifier); 
     void damageStep(int damage);
 };

@@ -2,4 +2,4 @@
 typedef std::map<std::string,statusEffect> effectMap;
 static effectMap Effects;
 
-effectMap getEffects(); 
+void populateEffects(); 
