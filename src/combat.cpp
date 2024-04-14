@@ -2,7 +2,7 @@
 #include <iostream>
 #include <iterator>
 #include "headers/combatEntities.hpp"
-void nothing(combatentity a, combatentity b) {
+void nothing(combatentity& a, combatentity& b) {
 }
 
 
@@ -67,7 +67,8 @@ combatentity::combatentity(std::string name, int health, int defense, attackMeth
     takesDamage(1),
     maxDefense(defense)
     {} 
-void combatentity::damageStep(int damage, double DefenseModifier) { 
+void combatentity::damageStep(int damage, double DefenseModifier) {
+
     defense = defense * DefenseModifier;
     damage = damage - defense;
     //my intuition of a func named min/max was that it would allow you to cap a value to a min/max value. 
@@ -130,7 +131,9 @@ combatStatus fightLoop(combatentity& player,combatentity enemy, bool PlayerIniti
     while(!(player.Dead)&&!(enemy.Dead)) {
         combatentity curEntity = (Turn ? player:enemy);
         combatentity otherEntity = (Turn ? enemy:player);
+        std::cout << "Pre loop" << std::endl;
         for(statusEffect curEffect : curEntity.appliedStatusEffects) {
+                std::cout << "in loop" << std::endl;
                 curEffect.onTurnBegin(curEntity,otherEntity);
             }
  
@@ -218,16 +221,12 @@ void botCombatStep(combatentity& actor,combatentity& target) {
     std::cout << actor.name << " used " << selectedAttack.name << std::endl;
     int damage = selectedAttack.rollDamage();
     //maybe a smart pseudorandom one would feel better; some games, like XCOM, fake the rng to guarantee that you get an effect every 2 or 3 usages or similar.
-    std::cout << "test1" << std::endl; 
-    bool critRoll = ((rand()%selectedAttack.critDieSize==0) ? true : false);
+    bool critRoll = ((rand()%selectedAttack.critDieSize)==0 ? true : false);
     int damagemodifier = (critRoll ? 2 : 1);
-    std::cout << "test2" << std::endl; 
     int finalDamage = damage * damagemodifier;
-    std::cout << "test3" << std::endl; 
     int DefenseModifier = ( target.isBlocking ? target.BlockModifier : 1);
-    std::cout << "test4" << std::endl; 
     target.damageStep(damage,DefenseModifier);
-
+    selectedAttack.onUsage(actor,target);
 
 
 }

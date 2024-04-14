@@ -10,14 +10,14 @@ enum combatStatus {
     PlayerDied,EnemyDied,PlayerFled,errorOccured
 };
 struct combatentity;
-typedef void(*actionPointer)(combatentity actor, combatentity target);
+typedef void(*actionPointer)(combatentity& actor, combatentity& target);
 enum attackMethod {
     //random is already defined; "orderless" is what i'm using instead.
     orderless,ordered,weighted,none
 
 };
 
-void nothing(combatentity a, combatentity b);
+void nothing(combatentity& a, combatentity& b);
 
 struct attack{
     int damageBase;
