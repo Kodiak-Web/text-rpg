@@ -1,0 +1,18 @@
+Aftermath Bounty Hunter Fight
+
+
+
+The job is finished. The bounty hunter lays on the ground, unresponsive. As you're catching your breath, you look around the room. Everything was destroyed in your fight. It doesn't matter too much to you anyway, you always hated the number 129. You walk over to sit down on what remains of the bed to determine your next move. The door at the end of the hallway. The door with the scratched-off number. You straighten up your hat and make your way to the door. As you open, you look back one last time at what's left after the battle. You can't help but feel...good. You aren't one for violence but that victory felt deserved.
+
+
+*Do you wish to leave the room?*
+
+Option 1 (yes): 
+	You walk out the door, swiftly making your way into the hallway.
+
+Option 2 (no): 
+	You choose not to leave. You stare at the hunter's body. It twitches. He's still alive, but he wont 	be getting up anytime soon. 
+
+	*This dialogue repeats until player chooses to leave*
+
+

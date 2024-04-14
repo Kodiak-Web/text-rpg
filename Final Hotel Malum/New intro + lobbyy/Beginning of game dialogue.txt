@@ -1,0 +1,9 @@
+// Beginning of the game dialogue explaining the situation
+
+It's a slow and rainy night in the streets of London.
+Today's date is Sunday, January 28th, 1894.
+You're a vigilante detective whos been following a local rumor that led you straight to a hotel that is owned by none other than John Evil. Hotel Malum is the name. You've caught wind that John Evil hidden somehwere in this hotel. So it's on you to investigate the scene and take down John Evil...
+
+"We're here" says the taxi driver
+
+You give the taxi driver a nod as you open the taxi door. When you step out of the car, a strong gust of cold wind hits you, nearly blowing your hat away. You quickly secure your hat and rush inside the hotel.

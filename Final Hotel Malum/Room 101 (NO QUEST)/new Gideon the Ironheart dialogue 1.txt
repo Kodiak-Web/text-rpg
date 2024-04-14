@@ -1,0 +1,49 @@
+Gideon the Ironheart dialogue 1
+
+
+
+
+
+"My name is [player name], I'm here to investigate this hotel. Who are you and what is your business here." -player
+
+*silence*
+
+"I said w-" - player
+
+"Silence." - gideon
+
+"..."
+
+You watch as he pulls a picture from out his large black coat. It's a picture of a familiar man.
+
+"Him. I'm here for him. John Evil" - gideon
+
+"What is your business with John Evil" - player
+
+"My name is Gideon. My business with John Evil is mine and mine only. You ask too many questions." - gideon
+
+"I'm doing my job. I'm here to find John Evil too. Do you know where he could be?" - Player
+
+"I know who you are. I'm going off the same rumor as you. I'm simply just making my way through this dumpster of a hotel" - Gideon
+
+"Right. Okay so I j-" - Player
+
+"I dont work with others. Leave me be" - Gideon
+
+
+
+He turns back around. Mindlessly going back to destroying this construct. You decide it's time to leave.
+
+
+*Do you wish to leave?*
+
+
+Option 1(yes):
+	You walk back to the door, swiftly making your way back into the hallway
+
+Option 2(no):
+	You can't help but stare at Gideon. Who is he?
+	"Leave." - Gideon
+	
+	
+	*Repeats^*

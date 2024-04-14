@@ -1,0 +1,8 @@
+This version of Hotel Malum includes
+
+
+- One tile lobby
+- No Gideon or Construct quest, but they exist.
+- Hotel Malum worker fight (Doesnt drop dagger)
+- Bounty Hunter fight (Doesnt drop blunderbuss) 
+- John Evil fight

@@ -1,0 +1,24 @@
+// First time entering the Hallway
+
+
+After exploring the lobby, you decide to venture through the double doors and into the hallway. You're rushed with a sudden surge of excitement. You're ready to investigate. Five doors stand in front of you. Two on the left, two on the right, and one directly ahead. 
+
+
+To your left, the door labeled 101 emits a faint but persistent banging noise, hinting at unseen activity from within
+
+The door adjacent to it is marked 117. It's slightly open. You see a flickering light peeking through its cracks.
+
+On your right, the door labeled 129 presents itself without any obvious abnormalities. But you can't help but feel something is off.
+
+Further down on the right is the door labeled 123. It catches your attention with its seemingly normal nature, yet the presence of the doormat adds a subtle layer of intrigue. 
+
+Finally, directly ahead, the unmarked door stands as a silent sentinel, its purpose is a mystery.
+
+You can choose to go to the door straight ahead, but something is telling you to explore the four rooms first.
+
+*What will your choice be?*
+*Room 101?*
+*Room 117?*
+*Room 123?*
+*Room 129?*
+*Room ---?*

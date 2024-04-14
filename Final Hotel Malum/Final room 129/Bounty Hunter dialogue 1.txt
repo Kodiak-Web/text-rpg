@@ -1,0 +1,16 @@
+Bounty Hunter dialogue 1
+
+
+
+"Arent you a sight for sore eyes. Looks like we got ourselves an intruder!" - bounty hunter
+
+"and you are...?" - player
+
+"The name is Jack. I'm a bounty hunter. I was told a rat like yourself would be roaming around the place looking for trouble. I was told to deal with you." - bounty hunter
+
+"Okay, Jack. Im guessing the only way out of this is through a battle?" - player
+
+"You said it not me HAHA!" - bounty hunter
+
+
+*the battle starts*

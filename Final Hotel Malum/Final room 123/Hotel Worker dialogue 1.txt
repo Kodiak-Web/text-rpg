@@ -1,0 +1,20 @@
+// Hotel Worker dialogue 1
+
+
+"How long have you been standing there" - player
+
+"Hello. I assume you're here for a part...?" - worker
+
+"I guess you could say something like that. Do you have it?" - player
+
+"I sure do. But I wont hand it over unless you humor me." - worker
+
+"Humor you how?" - player
+
+"Oh you know, a duel" - worker
+
+
+
+
+The worker pulls out a dagger and lunges towards you.
+*Battle starts*

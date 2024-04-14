@@ -1,0 +1,17 @@
+// Lobby (one tile)
+
+
+As you step into the entrance of the hotel, your sense are immediately assailed by the surreal atmosphere. The fiant scent of motor oil mingles with the smell of saltwater, hinting at a disconverting blend of neglect and eccentricity. Your eyes dart to the fish tank resting against the right wall, its glass clouded with oil residue, like a forgotten relic. Within it, a few desolate fish swim listlessly, their colros muted and their movements sluggish, trapped in a world of darkness.
+
+Approaching the front desk on the right, you notice the once-polished wood is now weather and chipped. Papers lie scattered, some threatening to tumble to the floor at any moment. A lone lamp flickers weakly, casting eerie shadows that dance across the worn surface. 
+
+Ahead of you, a pair of imposing double doors beckon, their faded paint peeling away to reveal glimpses of what lies beyond. They stand as silent guardians, promising both adventures and uncertainty to those who dare to pass through...
+
+Do you wish to enter?
+
+
+Option 1(yes):
+	You make your way to the worn double doors. You take a deep breath in, and as you exhale you 	make your way into the hallway.
+
+Option 2(no):
+	You decide not to go into the hallway just yet. Something appears so off about this Hotel but 	you can't put your finger on it. Nothing seems to be of interest in the lobby. You have a 	feeling all of the meat will be in the hallway

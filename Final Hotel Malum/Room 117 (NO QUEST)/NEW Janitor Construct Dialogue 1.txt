@@ -1,0 +1,38 @@
+Janitor Construct Dialogue 1
+
+
+"Hu- human. Please...you must help me" - Construct
+
+"What's happened here? Explain to me" - Player
+
+"A man. H- h- he bursted into the room while I was cleaning. It was scary. I was scared. He st- st- started to attack me. I begged for mercy but he did no- no- not hear me." -construct
+
+"Which man? What did he look like" - Player
+
+"Tall. Grizzled. He had a mechan- mec- mechanical hand. He used that thing to destroy me so effortlessly" - construct
+
+"Mechanical hand? That's odd" - Player
+
+"He surely was not human. He may look like one, but I've onl- only seen constr- cons- constructs with the power" - Construct
+
+"Are you going to be okay?" - Player
+
+"I will. Please just put an end to whatever is happening here. Quickly" - player
+
+
+You stand back up, with a newfound sense of determination. You make your way to the door, ready for whats next.
+
+
+*Do you wish to leave?*
+
+Option 1(yes):
+	You open the door, swiftly making your way back into the hallway.
+
+Option 2(no):
+	You decide to look around for a few more minutes
+	"Please, pl- please save us" - Construct
+	"Whos us?" - Player
+	"You. Me. Them" - Construct
+	You stare at the construct. Dumbfounded, you make your way back to the door.
+
+	*LOOPS^*

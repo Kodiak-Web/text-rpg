@@ -1,0 +1,19 @@
+// Aftermath of fight in room 123
+
+
+
+Frozen in shock, you stand amidst the battle's aftermath, the unsettling sight of the hotel worker's lifeless form crashing down before you. Though not one to embrace sudden violence, the worker's aggression had left you with no choice but to humor him. You stride purposefully toward the briefcase. You go to open it, but you realize it remains stubbornly sealed, missing a gear. Scouring the room in a frantic search, you gaze upon the worker's prone form, a gear is glued to the back of his head. You pluck the gear from its resting place and affix it onto the briefcase, its mechanism springing to life with a click. As the lid swings open, it reveals... disappointment. There's nothing in here. You stand back up slowly. You let out a sigh. You walk back over to the door.
+
+
+*Do you wish to leave?*
+
+Option 1 (yes):
+	You open the door, and swifly make your exit back into the hallway
+
+option 2 (no):
+	You survey the room once more. You're unsure why the worker immediately wanted trouble. Did he have	a death wish? It doesnt matter much anymore, the job is finished.
+
+
+	*This dialogue loops until player says yes ^*
+
+
