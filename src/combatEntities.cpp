@@ -21,7 +21,7 @@ attackMap getAttacks() {
         attack(5,10,50,10,"Steam Punch"), //JE
         attack(2,5,10,3,"Oil Flamethrower"),//JE
         attack(0,0,5,20,"Eye Flash"),
-        attack(4,2,20,10,"Dagger Strike"),
+        attack(5,5,0,3,"Dagger Strike"),
         attack(5,5,0,20,"Blundershot")
     };
     //inefficient but makes construction easier 

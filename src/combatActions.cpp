@@ -78,7 +78,6 @@ int decrementStunEffect(combatentity& target) {
             curEffect->duration--;
             stun = *curEffect;
             stunidx = idx;
-            std::cout << "duration: " << curEffect->duration << std::endl;
             if(!curEffect->duration) {
                 curEffect->onExpiration(target,target);
             } else {
