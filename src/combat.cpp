@@ -125,7 +125,25 @@ enum combatMenuSelection {
     Flee,
     UnimplementedAction
 };
+void afterTurn(combatentity& actor, combatentity& target) {
+    int idx(0);        
+    auto EffectIt = actor.appliedStatusEffects.begin();
+            for(;EffectIt!=actor.appliedStatusEffects.end();) {
+                EffectIt = actor.appliedStatusEffects.begin();
+                std::advance(EffectIt,idx);
+                statusEffect curEffect = *EffectIt;
+                curEffect.duration -= 1;
+                if(!curEffect.duration) {
+                    curEffect.onExpiration(actor,target); 
+                    actor.appliedStatusEffects.erase(EffectIt);
+                   
+                } else {
+                    idx++;
+                }
+            }
 
+
+}
 //an enum like this is my response to the bool not being representative enough. an enum with every valid state defined is easy to handle, esp with something like a switch case.
 //player is by reference to maintain health between fights. changed to fix bug
 //enemy is not to keep them fresh
@@ -133,13 +151,17 @@ combatStatus fightLoop(combatentity& player,combatentity enemy, bool PlayerIniti
     Turn = PlayerInitiative;
     bool attemptFlee(0);
 
-    while(!(player.Dead)&&!(enemy.Dead)) {
-        combatentity curEntity = (Turn ? player:enemy);
-        combatentity otherEntity = (Turn ? enemy:player);
-        for(statusEffect curEffect : curEntity.appliedStatusEffects) {
-                curEffect.onTurnBegin(curEntity,otherEntity);
+    while(!(player.Dead)&&!(enemy.Dead)) { 
+        if(Turn) {
+        for(statusEffect curEffect : player.appliedStatusEffects) {
+                curEffect.onTurnBegin(player,enemy);
+            }}
+        if(!Turn)  {
+            for(statusEffect curEffect : enemy.appliedStatusEffects) {
+                curEffect.onTurnBegin(enemy,player);
             }
- 
+        
+        }
         if(Turn) {
                         int input;
             std::cout << enemy.name << ": " << enemy.health << '/' << enemy.maxHealth << " HP" << '\n' << 
@@ -166,28 +188,14 @@ combatStatus fightLoop(combatentity& player,combatentity enemy, bool PlayerIniti
                 case UnimplementedAction:
                     std::cout << "Unimplemented Action\n" << std::endl;
             }
+            afterTurn(player,enemy); 
 
         }else { 
             botCombatStep(enemy,player);
+            afterTurn(enemy,player); 
         }
 
             Turn = !Turn;
-            int idx = 0;
-            curEntity = (Turn ? player:enemy);
-            auto EffectIt = curEntity.appliedStatusEffects.begin();
-            for(;EffectIt!=curEntity.appliedStatusEffects.end();) {
-                EffectIt = curEntity.appliedStatusEffects.begin();
-                std::advance(EffectIt,idx);
-                statusEffect curEffect = *EffectIt;
-                curEffect.duration -= 1;
-                if(!curEffect.duration) {
-                    curEffect.onExpiration(curEntity,otherEntity); 
-                    curEntity.appliedStatusEffects.erase(EffectIt);
-                   
-                } else {
-                    idx++;
-                }
-            }
 
     }
     if(player.Dead) {
@@ -197,6 +205,7 @@ combatStatus fightLoop(combatentity& player,combatentity enemy, bool PlayerIniti
     }
     return combatStatus::errorOccured;
 }
+
 attack botPickAttack(combatentity& Actor) {
     auto attacks = Actor.attacks;
     auto static atkIt = attacks.begin();
@@ -231,8 +240,9 @@ void botCombatStep(combatentity& actor,combatentity& target) {
     int finalDamage = damage * damagemodifier;
     int DefenseModifier = ( target.isBlocking ? target.BlockModifier : 1);
     target.damageStep(damage,DefenseModifier);
+
     selectedAttack.onUsage(actor,target);
-    
+
 
 }
 

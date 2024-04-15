@@ -64,22 +64,23 @@ void applyStunEffect(combatentity& actor, combatentity& target) {
     }
     }
 
-statusEffect decrementStunEffect(combatentity& target) {
+int decrementStunEffect(combatentity& target) {
     bool isAlreadyStunned = false;
     auto effectIt = target.appliedStatusEffects.begin();
     auto curEffect = effectIt;
     statusEffect stun;
-    for(int idx(0);idx<target.appliedStatusEffects.size();idx++) {
+    int idx = 0;
+    int stunidx;
+    for(;idx<target.appliedStatusEffects.size();idx++) {
         curEffect = std::next(effectIt,idx);
         if(curEffect->applyAction==applyStunEffect) {
             isAlreadyStunned=true;
             curEffect->duration--;
             stun = *curEffect;
+            stunidx = idx;
             std::cout << "duration: " << curEffect->duration << std::endl;
             if(!curEffect->duration) {
                 curEffect->onExpiration(target,target);
-                target.appliedStatusEffects.erase(curEffect);
-                std::cout << "deleted" << std::endl;
             } else {
                 idx++;
             }
@@ -87,22 +88,24 @@ statusEffect decrementStunEffect(combatentity& target) {
         idx++;
         }
     }
-    return stun;
+    return stunidx; 
 }
 
 
 
 void stunEffect(combatentity& actor, combatentity& target) {
     actor.defense = (int)((double)actor.maxDefense * 0.6);
-    statusEffect stun = decrementStunEffect(actor); 
-    if(stun.duration==0) {
-        return;
-    }
+    actor.appliedStatusEffects.erase(
+            std::next(actor.appliedStatusEffects.begin(),
+                     decrementStunEffect(actor)
+                     )              ); 
+
     if(actor.name == "Player") {
         SetTurnState(0); 
     } else {
         SetTurnState(1);
     }
+
 }
 //used from status effect
 void expireStunEffect(combatentity& actor, combatentity& target) {
@@ -110,7 +113,7 @@ void expireStunEffect(combatentity& actor, combatentity& target) {
 }
 
 void buildEffects() {
-    Effects.insert(std::pair("stun",statusEffect(2,applyStunEffect,stunEffect,expireStunEffect,expireStunEffect)));
+    Effects.insert(std::pair("stun",statusEffect(1,applyStunEffect,stunEffect,expireStunEffect,expireStunEffect)));
 }
 
 //must be called 
