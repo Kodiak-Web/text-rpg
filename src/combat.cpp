@@ -2,6 +2,7 @@
 #include <iostream>
 #include <iterator>
 #include "headers/combatEntities.hpp"
+#include "text/combat/textmap.hpp"
 void nothing(combatentity& a, combatentity& b) {
     return;
 }
@@ -81,7 +82,7 @@ void combatentity::damageStep(int damage, double DefenseModifier) {
     //what it actually does is selects the smaller/larger of two values
     int finalDamage = (std::max(damage,1) * takesDamage);
     health -= finalDamage;
-    std::cout << name << " took " << finalDamage << " damage" << std::endl;
+   // std::cout << name << " took " << finalDamage << " damage" << std::endl;
     if(health <= 0) {
         Dead = true;
         std::cout << Dead << std::endl;
@@ -244,6 +245,7 @@ void botCombatStep(combatentity& actor,combatentity& target) {
     int damagemodifier = (critRoll ? 2 : 1);
     int finalDamage = damage * damagemodifier;
     int DefenseModifier = ( target.isBlocking ? target.BlockModifier : 1);
+    std::cout << formatAttackText(actor,target,selectedAttack) << std::endl; 
     if(damage!=0) {
     target.damageStep(finalDamage,DefenseModifier);
     }
