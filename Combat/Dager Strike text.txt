@@ -1,0 +1,11 @@
+----------
+IF STRUCK:
+----------
+%TARGET% lunges at you, and his dagger pierces into you. You push him off quickly, but you're hurt. It's nothing you can't handle.
+Dagger dealt %DAMAGE% damage!
+
+
+--------
+IF MISS:
+--------
+%TARGET% lunges at you with his dagger! But you sidestep the attack, and the worker stumbles. 
