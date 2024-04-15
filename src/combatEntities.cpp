@@ -17,12 +17,12 @@ attackMap getAttacks() {
 
     //DO NOT SET FOURTH VALUE TO 0, CAUSES MODULUS BY 0. WILL NOT BUILD ERROR CHECKING< NOT ENOUGH TIME
     attackregister Attacks = {
-        attack(4,6,25,5,"Shoot"),
-        attack(5,10,50,10,"Steam Punch"), //JE
-        attack(2,5,10,3,"Oil Flamethrower"),//JE
-        attack(0,0,5,20,"Eye Flash"),
-        attack(5,5,0,3,"Dagger Strike"),
-        attack(5,5,0,20,"Blundershot")
+        attack(4,6,25,5,"Shoot"),//player
+        attack(10,0,0,100,"Steam Punch"), //JE
+        attack(2,1,10,3,"Oil Flamethrower"),//JE
+        attack(0,0,5,20,"Eye Flash"),//player/worker
+        attack(5,5,0,3,"Dagger Strike"),//worker
+        attack(5,5,0,20,"Blundershot")//fight unimplemented
     };
     //inefficient but makes construction easier 
     attackMap attackDict;
@@ -39,7 +39,9 @@ attackMap getAttacks() {
 combatantregister getCombatants() {
     //memory enjoyers hate this one wierd trick!
     std::vector<combatentity> Combatants = {
-        combatentity("Player",20,5,attackMethod::none),
+
+        //player buff
+        combatentity("Player",90,5,attackMethod::none),
         combatentity("Dummy",10,0,attackMethod::none),
         combatentity("Slime",10,3,attackMethod::orderless),
         combatentity("John Evil",50,7,attackMethod::orderless),
@@ -61,6 +63,9 @@ void populateAttacks(combatantregister& Combatants) {
 try { 
     Combatants["Malum Worker"].add_attack(Attacks["Eye Flash"]);
     Combatants["Malum Worker"].add_attack(Attacks["Dagger Strike"]);
+    Combatants["John Evil"].add_attack(Attacks["Steam Punch"]);
+    Combatants["John Evil"].add_attack(Attacks["Oil Flamethrower"]);
+
     Combatants["Player"].add_attack(Attacks["Shoot"]); }
 catch(std::bad_alloc) {
     std::cout << "\n\n\n\n\nSomebody tried adding an attack to a combatant, and one of those attacks or combatants was invalid.\n\n\n\n" << std::endl;

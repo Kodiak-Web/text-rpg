@@ -13,7 +13,7 @@ int main() {
     init();
     combatantregister Combatants = initCombatants();
     tile debugroom(-256,-256);
-    debugroom.Enemy = Combatants["Malum Worker"]; 
+    debugroom.Enemy = Combatants["John Evil"]; 
     fightLoop(Combatants["Player"],debugroom.Enemy,true);
     return 0;
 }

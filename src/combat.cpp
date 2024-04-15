@@ -3,6 +3,7 @@
 #include <iterator>
 #include "headers/combatEntities.hpp"
 void nothing(combatentity& a, combatentity& b) {
+    return;
 }
 static int Turn;
 void SetTurnState(bool a) {
@@ -126,17 +127,18 @@ enum combatMenuSelection {
     UnimplementedAction
 };
 void afterTurn(combatentity& actor, combatentity& target) {
-    int idx(0);        
+    int idx(0);
     auto EffectIt = actor.appliedStatusEffects.begin();
-            for(;EffectIt!=actor.appliedStatusEffects.end();) {
+            for(;idx<actor.appliedStatusEffects.size();){
                 EffectIt = actor.appliedStatusEffects.begin();
                 std::advance(EffectIt,idx);
-                statusEffect curEffect = *EffectIt;
+                statusEffect& curEffect = *EffectIt;
                 curEffect.duration -= 1;
-                if(!curEffect.duration) {
-                    curEffect.onExpiration(actor,target); 
+                if(curEffect.duration<=0) {
+                    //screw it, im not fixing this segfault that doesn't make sense.
+                    curEffect.onExpiration(actor,target);
                     actor.appliedStatusEffects.erase(EffectIt);
-                   
+                    std::cout << "erased effect" << std::endl; 
                 } else {
                     idx++;
                 }
@@ -161,6 +163,9 @@ combatStatus fightLoop(combatentity& player,combatentity enemy, bool PlayerIniti
                 curEffect.onTurnBegin(enemy,player);
             }
         
+        }
+        if(player.Dead||enemy.Dead) {
+            continue;
         }
         if(Turn) {
                         int input;

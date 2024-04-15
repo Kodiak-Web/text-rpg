@@ -39,14 +39,32 @@ void heal(combatentity& actor, combatentity& target) {
     actor.health = std::min(actor.maxHealth,newhealth);
     std::cout << actor.name << " Healed " << roll << " HP" << std::endl;
 }
+int rollBurn() {
+    return (rand()%3)+1;
 
-void fireDamageStep(combatentity& actor, combatentity& target) {
-    int roll = (rand()%3)+1;
-    actor.damageStep(roll,0.2);
 }
-
-
-
+void burnDamageStep(combatentity& actor, combatentity& target) {
+    int burnDamage(0);
+    int burnCount(0);
+    
+    for(auto effect : actor.appliedStatusEffects) {
+        if(effect.onTurnBegin == burnDamageStep) {
+            burnCount++;
+            burnDamage+= rollBurn();
+         }
+    }
+    std::cout << actor.name << " is burned!" << std::endl; 
+    actor.damageStep(burnDamage,0.4);
+}
+void applyBurn(combatentity& actor, combatentity& target) {
+    
+    target.appliedStatusEffects.push_back(Effects["burn"]);
+}
+void burnExpire(combatentity& actor, combatentity& target) {
+   //for some reason nothing segfaults so i'm making an identical function with a different name
+    std::cout << "bruh" << std::endl;
+    return; 
+}
 void applyStunEffect(combatentity& actor, combatentity& target) {
     std::cout << actor.name << " stunned " << target.name << "!"<< std::endl;
     bool isAlreadyStunned = false;
@@ -113,12 +131,14 @@ void expireStunEffect(combatentity& actor, combatentity& target) {
 
 void buildEffects() {
     Effects.insert(std::pair("stun",statusEffect(1,applyStunEffect,stunEffect,expireStunEffect,expireStunEffect)));
+    Effects.insert(std::pair("burn",statusEffect(3,applyBurn,burnDamageStep,burnExpire,burnExpire)));
 }
 
 //must be called 
 void populateEffects(attackMap& attacks) {
     buildEffects();
     attacks["Eye Flash"].onUsage = applyStunEffect;
+    attacks["Oil Flamethrower"].onUsage = applyBurn;
 }
 
 attackAiMap getAttackAI() {
