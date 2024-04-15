@@ -244,8 +244,9 @@ void botCombatStep(combatentity& actor,combatentity& target) {
     int damagemodifier = (critRoll ? 2 : 1);
     int finalDamage = damage * damagemodifier;
     int DefenseModifier = ( target.isBlocking ? target.BlockModifier : 1);
-    target.damageStep(damage,DefenseModifier);
-
+    if(damage!=0) {
+    target.damageStep(finalDamage,DefenseModifier);
+    }
     selectedAttack.onUsage(actor,target);
 
 
@@ -282,7 +283,10 @@ void playerAttackMenu(combatentity& player, combatentity &enemy) {
         int damageRoll = currentAttack.rollDamage();
         bool critRoll = (rand()%20==0 ? true : false);
         int finalDamage = damageRoll * (critRoll ? 2:1);
-        enemy.damageStep(damageRoll);
+        if(damageRoll!=0) {
+        enemy.damageStep(finalDamage);
+        }
+        currentAttack.onUsage(player,enemy);
     }
     catch(...) {
         std::cout << "You don't know that attack" << std::endl;

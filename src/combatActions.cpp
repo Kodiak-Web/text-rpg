@@ -4,6 +4,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <ostream>
+#include <random>
 
 // i don't know fully what i'll put here yet, but everything must be a void function that takes two actors in currently.
 // this can allow arbitrary behaviour quite easily. 
@@ -32,6 +33,19 @@ attack MalumWorkerAI(combatentity& actor,combatentity& target) {
     attackindex %=4;
     return returnvalue;
 };
+
+void blunderbussDamageStep(combatentity& actor, combatentity& target) {
+    
+    
+    std::random_device rd; 
+    std::normal_distribution numPelletsHit{1.0,5.0};
+    std::normal_distribution pelletDamage{3.0,10.0};
+    int numPellets = (int)(numPelletsHit(rd)+0.5);
+    for(int idx(0);idx<numPellets;idx++) {
+        target.damageStep((int)(pelletDamage(rd)+.5),1);
+    }
+}
+
 
 void heal(combatentity& actor, combatentity& target) {
     int roll = (rand()%6)+1;
@@ -134,8 +148,15 @@ void buildEffects() {
     Effects.insert(std::pair("burn",statusEffect(3,applyBurn,burnDamageStep,burnExpire,burnExpire)));
 }
 
+
+void setDamageSteps(attackMap& attacks) {
+    attacks["Blundershot"].onUsage = blunderbussDamageStep;
+
+}
+
 //must be called 
 void populateEffects(attackMap& attacks) {
+    setDamageSteps(attacks);
     buildEffects();
     attacks["Eye Flash"].onUsage = applyStunEffect;
     attacks["Oil Flamethrower"].onUsage = applyBurn;
@@ -146,3 +167,5 @@ attackAiMap getAttackAI() {
     attackAIs["Malum Worker"] = MalumWorkerAI;
     return attackAIs;
 }
+
+

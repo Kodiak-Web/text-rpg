@@ -18,6 +18,8 @@ enum attackMethod {
 void nothing(combatentity& a, combatentity& b);
 
 struct attack{
+    int cooldownTime = 0;
+    int cooldown = 0;
     int damageBase;
     int damageDieSize; 
     int attackTime;
