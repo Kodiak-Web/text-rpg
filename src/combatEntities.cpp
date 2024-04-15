@@ -2,20 +2,14 @@
 #include "headers/combatEntities.hpp"
 #include "headers/combatActions.hpp"
 #include <iostream>
-std::map<std::string,std::vector<attack>> attackDict;
 
 void populateAttacks(combatantregister&);
-typedef std::map<std::string,attack> attackMap; 
 
 
 
 
 
-attackMap assignStatusEffects(attackMap attacks) {
-    populateEffects(); 
-    attacks["Eye Flash"].onUsage = Effects["stun"].applyAction;
-    return attacks;
-}
+
 
 
 
@@ -34,12 +28,9 @@ attackMap getAttacks() {
     attackMap attackDict;
     for(attack curAttack: Attacks) {
         attackDict.insert(std::pair(curAttack.name,curAttack));
-    }
-
-    return assignStatusEffects(attackDict);
-    
-
-
+    } 
+    populateEffects(attackDict);
+    return attackDict;
 
 }
 
@@ -47,19 +38,19 @@ attackMap getAttacks() {
 
 combatantregister getCombatants() {
     //memory enjoyers hate this one wierd trick!
-
-    attackMap Attacks = getAttacks();
     std::vector<combatentity> Combatants = {
         combatentity("Player",20,5,attackMethod::none),
         combatentity("Dummy",10,0,attackMethod::none),
         combatentity("Slime",10,3,attackMethod::orderless),
         combatentity("John Evil",50,7,attackMethod::orderless),
-        combatentity("Malum Worker",15,3,attackMethod::orderless)
+        combatentity("Malum Worker",15,3,attackMethod::custom)
     };
     combatantregister combatantDict;
+    attackAiMap AttackAIs = getAttackAI();
     for(combatentity curEntity: Combatants) {
         combatantDict.insert(std::pair(curEntity.name,curEntity));
     }
+    combatantDict["Malum Worker"].chooseAttack = AttackAIs["Malum Worker"];
     populateAttacks(combatantDict);
     return combatantDict;
 }
@@ -69,6 +60,7 @@ void populateAttacks(combatantregister& Combatants) {
     auto Attacks = getAttacks();
 try { 
     Combatants["Malum Worker"].add_attack(Attacks["Eye Flash"]);
+    Combatants["Malum Worker"].add_attack(Attacks["Dagger Strike"]);
     Combatants["Player"].add_attack(Attacks["Shoot"]); }
 catch(std::bad_alloc) {
     std::cout << "\n\n\n\n\nSomebody tried adding an attack to a combatant, and one of those attacks or combatants was invalid.\n\n\n\n" << std::endl;

@@ -1,11 +1,9 @@
 #pragma once
-#include <iterator>
 #include <string>
 #include <vector>
 #include <map>
 // true is player, false is bot. can set before battle to determine who goes first.
-static bool Turn = (0);
-
+void SetTurnState(bool);
 enum combatStatus {
     PlayerDied,EnemyDied,PlayerFled,errorOccured
 };
@@ -13,7 +11,7 @@ struct combatentity;
 typedef void(*actionPointer)(combatentity& actor, combatentity& target);
 enum attackMethod {
     //random is already defined; "orderless" is what i'm using instead.
-    orderless,ordered,weighted,none
+    orderless,ordered,custom,none
 
 };
 
@@ -33,12 +31,14 @@ struct attack{
     int rollDamage();
 
     //use for things like status effects.
-    actionPointer onUsage;
+    actionPointer onUsage = nothing;
 };
 
+typedef attack(*attackPicker)(combatentity& actor, combatentity& target);
 typedef std::string damageType;
 struct statusEffect{
     int duration;
+    
     actionPointer applyAction;
     actionPointer onTurnBegin;
     actionPointer onTurnEnd;
@@ -49,6 +49,7 @@ struct statusEffect{
 };
 //considering making this a class so that random code can't come in and change values;
 struct combatentity{
+    attackPicker chooseAttack;
     std::string name;
     int health;
     int maxHealth; 

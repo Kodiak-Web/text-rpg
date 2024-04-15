@@ -4,6 +4,11 @@
 #include "headers/combatEntities.hpp"
 void nothing(combatentity& a, combatentity& b) {
 }
+static int Turn;
+void SetTurnState(bool a) {
+    Turn = a;
+}
+
 
 
 statusEffect::statusEffect():
@@ -131,9 +136,7 @@ combatStatus fightLoop(combatentity& player,combatentity enemy, bool PlayerIniti
     while(!(player.Dead)&&!(enemy.Dead)) {
         combatentity curEntity = (Turn ? player:enemy);
         combatentity otherEntity = (Turn ? enemy:player);
-        std::cout << "Pre loop" << std::endl;
         for(statusEffect curEffect : curEntity.appliedStatusEffects) {
-                std::cout << "in loop" << std::endl;
                 curEffect.onTurnBegin(curEntity,otherEntity);
             }
  
@@ -207,8 +210,10 @@ attack botPickAttack(combatentity& Actor) {
             break;
         case attackMethod::ordered:
             break;
-        case attackMethod::weighted:
-            break; 
+        case attackMethod::custom:
+            //i hate this but again, mess for speed.
+           return Actor.chooseAttack(Actor,Actor);
+
     }
     return attack();
 }
@@ -227,7 +232,7 @@ void botCombatStep(combatentity& actor,combatentity& target) {
     int DefenseModifier = ( target.isBlocking ? target.BlockModifier : 1);
     target.damageStep(damage,DefenseModifier);
     selectedAttack.onUsage(actor,target);
-
+    
 
 }
 
