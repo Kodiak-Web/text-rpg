@@ -407,4 +407,7 @@ void Evilroom()
         << "\nJohn Evil is escorted out of the building to a sky which is a deep blue hue, speckled with stars as the rain and wind subside."
         <<"\nYou feel content knowing this will be the last night John Evil ever has the chance to see the stars"
         << "\n\n\n..Hopefully, the first night of many more for you.";
+
+    cout << "\n\nPress Enter to exit game."
+        << cin.get();
 }
